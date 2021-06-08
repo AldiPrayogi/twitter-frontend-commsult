@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "react-app",
+    "airbnb",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "semi": 2,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "warn", {
+        "semi": true
+      }
+    ]
+  }
+}
