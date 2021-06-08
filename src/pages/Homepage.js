@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Layout } from "antd";
+import { Button, Layout, Row, Col, Space } from "antd";
 import { useHistory } from "react-router-dom";
 
 const Homepage = () => {
@@ -14,19 +14,23 @@ const Homepage = () => {
   };
 
   return (
-    <Layout>
-      <Header>Header</Header>
+    <div>
       <Layout>
-        <Sider>Sides</Sider>
-        <Content>
-          <Button type="primary" onClick={onSubmitLogin}>
-            Login
-          </Button>
-          <Button onClick={onSubmitRegister}>Register</Button>
-        </Content>
+        <Row>
+          <Col span={14}>
+            <Sider>Sides</Sider>
+          </Col>
+          <Col span={10}>
+            <Content>
+              <Button type="primary" onClick={onSubmitLogin}>
+                Login
+              </Button>
+              <Button onClick={onSubmitRegister}>Register</Button>
+            </Content>
+          </Col>
+        </Row>
       </Layout>
-      <Footer>Foot</Footer>
-    </Layout>
+    </div>
   );
 };
 
