@@ -1,20 +1,16 @@
 {
   "extends": [
     "react-app",
-    "airbnb",
-    "prettier"
-  ],
-  "plugins": [
-    "prettier"
+    "airbnb"
   ],
   "rules": {
-    "semi": 2,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/react-in-jsx-scope": "off",
-    "prettier/prettier": [
-      "warn", {
-        "semi": true
-      }
-    ]
+    "react/prop-types": "off",
+    "react/prefer-stateless-function": "off",
+    "no-multiple-empty-lines": [2, {"max": 1}],
+    "indent": ["error", 2],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-filename-extension": "off",
+    "no-unused-vars": "warn"
   }
 }
