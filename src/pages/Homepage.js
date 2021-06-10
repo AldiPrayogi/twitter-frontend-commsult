@@ -1,35 +1,54 @@
-import React from "react";
-import { Button, Layout, Row, Col, Space } from "antd";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import {
+  Button, Layout, Row, Col,
+} from 'antd';
+import { useHistory } from 'react-router-dom';
+import RegisterModal from '../components/RegisterModal';
+import './Homepage.scss';
 
 const Homepage = () => {
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const history = useHistory();
-  const { Header, Footer, Sider, Content } = Layout;
+  const {
+    Sider, Content,
+  } = Layout;
 
   const onSubmitRegister = () => {
-    history.push("/register");
+    setIsSignUpModalOpen(true);
   };
   const onSubmitLogin = () => {
-    history.push("/login");
+    history.push('/login');
   };
 
   return (
-    <div>
-      <Layout>
-        <Row>
-          <Col span={14}>
-            <Sider>Sides</Sider>
+    <div className="homepage">
+      <Row className="row-container">
+        <Layout className="layout-container">
+          <Col span={14} className="sides-container">
+            <Sider />
           </Col>
-          <Col span={10}>
+          <Col span={10} className="content-container">
             <Content>
-              <Button type="primary" onClick={onSubmitLogin}>
-                Login
-              </Button>
-              <Button onClick={onSubmitRegister}>Register</Button>
+              <div>
+                <h2>Happening now</h2>
+                <h4>Join Twitter today.</h4>
+              </div>
+              <div className="button-container">
+                <Button type="primary" className="button-register" onClick={onSubmitRegister}>
+                  Sign Up
+                </Button>
+                <RegisterModal
+                  isModalOpen={isSignUpModalOpen}
+                  setIsModalOpen={setIsSignUpModalOpen}
+                />
+                <Button className="button-login" onClick={onSubmitLogin}>
+                  Log in
+                </Button>
+              </div>
             </Content>
           </Col>
-        </Row>
-      </Layout>
+        </Layout>
+      </Row>
     </div>
   );
 };

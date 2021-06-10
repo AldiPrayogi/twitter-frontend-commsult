@@ -1,0 +1,54 @@
+.register-modal-container{
+}
+
+.register-modal{
+  padding: 0 !important;
+}
+.ant-modal-body{
+  padding: 0 !important;
+}
+
+.modal-content{
+  overflow: auto;
+  padding: 5% 5% 5% 5%;
+  background-color: #001529;
+  h1{
+    font-weight: bold;
+    color: white;
+  }
+  .signup-field{
+    color: white;
+    border-style: solid;
+    border-width: thin;
+    border-color: darkgrey;
+    background-color: #001529;
+    font-size: 1.5em;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 2.5% 0 1% 0;
+    width: 100%;
+    display: block;
+    input{
+      color: white;
+      font-size: 1em;
+      padding: 5px;
+    }
+  }
+}
+.error-container{
+  color: red;
+}
+
+.button-submit{
+  color: white;
+  font-weight: bold;
+  border-style: solid;
+  border-width: thin;
+  border-color: dodgerblue;
+  background-color: #13bffb;
+  margin-top: 3%;
+  padding: 5px;
+  width: 30%;
+  font-size: 1.1em;
+  border-radius: 5px;
+}
