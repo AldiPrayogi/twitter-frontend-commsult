@@ -1,0 +1,80 @@
+.landing-page {
+  background-color: #18242c !important;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+.left-sider {
+  text-align: right;
+  min-height: 100vh;
+  margin: 0 0 0 auto;
+  position: fixed;
+  display: flex;
+  flex-direction: row-reverse;
+  overflow: auto;
+  .icon-container {
+    border-radius: 20px;
+    //width: 100%;
+    text-align: right;
+  }
+  h4 {
+    text-align: left;
+    color: white;
+  }
+  .ant-menu-item {
+    border-radius: 20px;
+    margin-right: 0;
+    text-align: right;
+  }
+  .twitter-logo{
+    width: 15% !important;
+  }
+}
+.icon-name {
+  @media only screen and (max-width: 1250px) {
+    display: none;
+  }
+}
+.ant-layout-sider {
+  min-width: 35vw !important;
+  @media only screen and (max-width: 500px) {
+    max-width: 1vw !important;
+  }
+}
+
+.content-container{
+  background-color: #18242c !important;
+  min-height: 100vh;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  max-width: 55vw;
+  min-width: 500px;
+  @media only screen and (max-width: 1250px) {
+    min-width: 300px;
+    max-width: 70vw;
+  }
+}
+.right-sider {
+  width: 100%;
+  text-align: left;
+  min-height: 100vh;
+  margin: 0 auto 0 0;
+  position: fixed;
+  overflow: auto;
+  .icon-container {
+    border-radius: 20px;
+    text-align: right;
+  }
+  h4 {
+    text-align: left;
+    color: white;
+  }
+  .ant-menu-item {
+    border-radius: 20px;
+    margin-right: 0;
+    text-align: right;
+  }
+  .twitter-logo{
+    width: 15% !important;
+  }
+}

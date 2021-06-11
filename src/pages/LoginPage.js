@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Field} from 'formik-antd';
+import { Form, Field } from 'formik-antd';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { message, Spin } from 'antd';
