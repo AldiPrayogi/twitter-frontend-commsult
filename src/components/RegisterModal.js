@@ -4,7 +4,7 @@ import { Form, Field, DatePicker } from 'formik-antd';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { Modal, Spin, message } from 'antd';
-import register from '../services/authService';
+import authService from '../services/authService';
 import SignupSchema from '../ValidationSchema/SignUpValidation';
 import './RegisterModal.scss';
 
@@ -17,7 +17,7 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
     setIsModalOpen(false);
   };
 
-  const handleOnSubmit = async (values) => register(values);
+  const handleOnSubmit = async (values) => authService.register(values);
 
   return (
     <div className="register-modal-container">
@@ -45,7 +45,7 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
               setIsLoading(true);
               const result = await handleOnSubmit(values);
               if (result.status !== 500) {
-                message.success(`${result.data.message} and redirecting you to login form...`, 5);
+                message.success(`${result.data.message} and redirecting you to login page...`, 5);
                 handleOnClose();
                 resetForm();
                 history.push('/login');

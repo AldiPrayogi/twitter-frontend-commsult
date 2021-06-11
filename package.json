@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "formik": "^2.2.9",
     "formik-antd": "^2.0.1",
+    "js-cookie": "^2.2.1",
     "node-sass": "^6.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -27,6 +28,7 @@
     "eject": "react-scripts eject",
     "lint-fix": "eslint ./src --fix"
   },
+  "proxy": "http://localhost:8081",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -4,9 +4,9 @@ import {
 } from 'antd';
 import { useHistory } from 'react-router-dom';
 import RegisterModal from '../components/RegisterModal';
-import './Homepage.scss';
+import './LandingPage.scss';
 
-const Homepage = () => {
+const LandingPage = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const history = useHistory();
   const {
@@ -21,7 +21,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="homepage">
+    <div className="landing-page">
       <Row className="row-container">
         <Layout className="layout-container">
           <Col span={14} className="sides-container">
@@ -53,4 +53,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default LandingPage;
