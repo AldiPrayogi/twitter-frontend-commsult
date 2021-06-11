@@ -7,6 +7,10 @@
 .ant-modal-body{
   padding: 0 !important;
 }
+.ant-picker-clear{
+  color: white;
+  background-color: #001529 !important;
+}
 
 .modal-content{
   overflow: auto;
@@ -21,7 +25,7 @@
     border-style: solid;
     border-width: thin;
     border-color: darkgrey;
-    background-color: #001529;
+    background-color: #001529 !important;
     font-size: 1.5em;
     padding: 5px;
     border-radius: 5px;
@@ -29,6 +33,7 @@
     width: 100%;
     display: block;
     input{
+      background-color: #001529 !important;
       color: white;
       font-size: 1em;
       padding: 5px;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
 import { Form, Field, DatePicker } from 'formik-antd';
 import { Formik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import { Modal, Spin, message } from 'antd';
 import register from '../services/authService';
 import SignupSchema from '../ValidationSchema/SignUpValidation';
@@ -9,6 +10,8 @@ import './RegisterModal.scss';
 
 const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   const handleOnClose = () => {
     setIsModalOpen(false);
@@ -22,6 +25,7 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
         destroyOnClose
         visible={isModalOpen}
         centered
+        closable={false}
         footer={null}
         className="register-modal"
         onCancel={handleOnClose}
@@ -41,8 +45,10 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
               setIsLoading(true);
               const result = await handleOnSubmit(values);
               if (result.status !== 500) {
+                message.success(`${result.data.message} and redirecting you to login form...`, 5);
                 handleOnClose();
                 resetForm();
+                history.push('/login');
               }
               if (result.status === 500) {
                 message.error(result.data.message);
@@ -70,7 +76,7 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
                 {errors.dateOfBirth && touched.dateOfBirth ? (
                   <div className="error-container">{errors.dateOfBirth}</div>
                 ) : null}
-                <button type="submit" className="button-submit" onClick={Formik.onSubmit}>
+                <button disabled={isLoading} type="submit" className="button-submit" onClick={Formik.onSubmit}>
                   {isLoading ? (
                     <div>
                       <Spin />
