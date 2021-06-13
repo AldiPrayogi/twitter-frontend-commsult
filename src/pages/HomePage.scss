@@ -1,22 +1,20 @@
 .landing-page {
   background-color: #18242c !important;
-  min-height: 100vh;
-  height: 100vh;
-  min-width: 100vw;
 }
+
 .left-sider {
-  border-right-style: solid;
-  border-color: grey;
-  border-width: thin;
-  position: fixed;
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  z-index: 1;
   text-align: right !important;
   margin: 0;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 850px) {
+    max-width: 15vw !important;
+  }
+  @media only screen and (max-width: 1400px) {
+    font-size: 1.4em;
+  }
   .sidebar-icon {
     svg {
       font-size: 1.5em;
@@ -28,6 +26,11 @@
   .icon-container {
     text-align: right;
     border-radius: 20px;
+
+    @media only screen and (max-width: 850px) {
+      max-width: 10vw;
+      margin-right: 0 !important;
+    }
   }
   h4 {
     margin-left: 10px;
@@ -48,11 +51,23 @@
       border-radius: 30px !important;
       margin-left: 26vw !important;
     }
+    @media only screen and (max-width: 850px) {
+      max-width: 10vw;
+      margin-left: 3.2vw !important;
+    }
   }
 }
+
 .ant-menu-light {
+  border-style: none !important;
   background-color: #18242c !important;
+
+  @media only screen and (max-width: 850px) {
+    width: 15vw !important;
+    margin-left: 0 !important;
+  }
 }
+
 .button-container {
   margin: 5vh 0 35vh 0 !important;
   padding-left: 10%;
@@ -61,9 +76,8 @@
   @media only screen and (max-height: 1400px) {
     margin-bottom: 45vh;
   }
-
-  @media only screen and (max-height: 700px) {
-    margin-bottom: 37vh;
+  @media only screen and (max-width: 1400px) {
+    padding-left: 0;
   }
   Button {
     text-align: center;
@@ -77,6 +91,11 @@
       border-radius: 30px !important;
       margin-left: 18vw !important;
     }
+    @media only screen and (max-width: 850px) {
+      width: 80% !important;
+      padding-left: 3vw !important;
+      margin-left: 0 !important;
+    }
   }
 }
 
@@ -85,6 +104,9 @@
     color: white;
   }
   background-color: #18242c !important;
+  @media only screen and (max-width: 850px) {
+    margin-left: 0 !important;
+  }
 }
 
 .ant-menu-item-selected::after {
@@ -102,30 +124,48 @@
     border-radius: 30px !important;
     margin-left: 25vw !important;
   }
+  @media only screen and (max-width: 850px) {
+    width: 100% !important;
+    margin-left: 1.8vw !important;
+  }
   flex-grow: 1 !important;
 }
 
+.logout-button{
+  color: white;
+}
 .ant-popover-inner-content {
   padding: 0 !important;
   .logout-container{
-    padding: 15px;
     background-color: #18242c;
+
+    @media only screen and (max-width: 850px) {
+      margin-left: 0;
+    }
   }
   .info-logout-container {
-    .username-info {
-      color: white !important;
-      padding: 0 0 0 1vw !important;
-      margin-bottom: 20%;
+    .username-avatar {
+      padding-top: 5px;
     }
-    display: flex;
-    flex-direction: row;
+    .username-info {
+      h4{
+        width: 100%;
+        color: white;
+      }
+      p{
+        color: grey
+      }
+    }
+    border-bottom-style: solid;
+    border-color: white;
+    border-width: thin;
     background-color: #18242c;
   }
 }
 
 .avatar-container {
   width: 32% !important;
-  margin:  2vh 0 6.5vh 24.5vw !important;
+  margin:  2vh 0 0 24.5vw !important;
   padding: 1vw !important;
   border-radius: 22px;
   @media only screen and (max-width: 1400px) {
@@ -134,40 +174,109 @@
     border-radius: 30px !important;
     margin-left: 24vw !important;
   }
+  @media only screen and (max-width: 850px) {
+    margin: 0 0 0 3.5vw !important;
+    min-width: 15vw !important;
+  }@media only screen and (max-width: 350px) {
+    margin: 0 0 0 1vw !important;
+  }
   .user-name {
-    padding-top: 5px;
-    h3{
+    display: flex;
+    flex-direction: column;
+    .username{
+      color: grey;
+    }
+    p{
+      max-height: 10px;
+      text-align: left;
       color: white;
     }
+    margin-bottom: 18px;
     @media only screen and (max-width: 1450px) {
       display: none;
     }
   }
 }
+
 .icon-name {
   @media only screen and (max-width: 1450px) {
     display: none;
   }
 }
+
 .ant-layout-sider {
   min-width: 35vw !important;
   @media only screen and (max-width: 500px) {
     max-width: 1vw !important;
   }
 }
+
+.content-container{
+  word-wrap: anywhere;
+  overflow: auto;
+  @media only screen and (max-width: 850px) {
+    font-size: 1em;
+  }
+  background-color: #18242c !important;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-color: grey;
+  border-width: thin;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  @media only screen and (max-width: 1500px) {
+    min-width: 60vw;
+  }
+
+  @media only screen and (max-width: 850px) {
+    margin-left: 0;
+    min-width: 82vw !important;
+  }
+}
+
+.card-empty {
+  .ant-card-head-title{
+    color: white;
+    font-weight: bold;
+  }
+  .ant-card-head{
+    border-style: none;
+  }
+  margin-top: 10% !important;
+  border-left-style: none !important;
+  border-right-style: none !important;
+  background-color: #18242c !important;
+  border-color: grey !important;
+  h3 {
+    color: white;
+  }
+}
+
 .card-tweets {
-  min-height: 100px ;
+  min-height: 100px;
   background-color: #18242c !important;
   border-right-style: none !important;
   border-left-style: none !important;
+  border-width: thin !important;
   border-color: grey !important;
   .card-tweet-information {
     color: white;
     &-avatar{
-      margin-right: 10px;
       background-color: #18242c;
+      @media only screen and (max-width: 850px) {
+        max-width: 10%;
+      }
     }
     &-data{
+      max-width: 80%;
+      @media only screen and (max-width: 850px) {
+        max-width: 70%;
+      }
+      @media only screen and (max-width: 350px) {
+        font-size: 0.8em;
+      }
+      margin-left: 20px;
       text-align: left;
       &-users{
         display: flex;
@@ -177,49 +286,17 @@
         }
       }
     }
+    &-icon {
+      min-width: 50px;
+      text-align: right;
+    }
   }
 }
+
 .ant-card-body{
-  padding: 2% !important;
+  padding: 1.5% !important;
 }
-.content-container{
-  overflow: auto;
-  background-color: #18242c !important;
-  min-height: 100vh;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  max-width: 55vw;
-  min-width: 500px;
-  @media only screen and (max-width: 1250px) {
-    min-width: 50vw;
-    max-width: 1000px;
-  }
-}
-.right-sider {
-  width: 100%;
-  text-align: left;
-  min-height: 100vh;
-  margin: 0 auto 0 0;
-  position: fixed;
-  overflow: auto;
-  .icon-container {
-    border-radius: 20px;
-    text-align: right;
-  }
-  h4 {
-    text-align: left;
-    color: white;
-  }
-  .ant-menu-item {
-    border-radius: 20px;
-    margin-right: 0;
-    text-align: right;
-  }
-  .twitter-logo{
-    width: 15% !important;
-  }
-}
+
 .tweet-form-container {
   &-header{
     border-color: grey;
@@ -232,12 +309,17 @@
       padding: 2% 0 2% 3%;
       font-weight: bolder;
       text-align: left;
+      @media only screen and (max-width: 850px) {
+        font-size: 1em;
+      }
     }
   }
 }
+
 .tweet-container {
   max-height: 73vh;
 }
+
 .content-container::-webkit-scrollbar{
   display: none;
 }
@@ -249,8 +331,109 @@
   .ant-menu-item-selected {
     background-color: #001529 !important;
   }
-  p{
-    color: white;
+}
+
+
+.right-sider {
+  width: 100%;
+  @media only screen and (max-width: 1500px) {
+    display: none;
+  }
+  text-align: left;
+  &-search{
+    border-radius: 30px !important;
+    min-width: 15vw;
+    background-color: #18242c !important;
+    margin: 5% 0 0 5%;
+    &-input {
+      background-color: #18242c !important;
+      color: white;
+    }
+  }
+  &-trends{
+    .ant-card-head {
+      padding: 2% 0 0 5%;
+      border-color: grey;
+    }
+    .ant-card-head-title{
+      font-size: 1.2em;
+      color: white;
+      font-weight: bolder;
+    }
+    &-information{
+      display: flex;
+      flex-direction: column;
+      h4{
+        color: white;
+      }
+      h5{
+        color: grey;
+        margin-bottom: 1%;
+      }
+    }
+    &-more{
+      padding-top: 5%;
+    }
+    svg {
+      color: grey;
+    }
+    .ant-card {
+      .right-sider-trends-container{
+        padding: 2% 0 2% 1%;
+        border-bottom-style: solid;
+        border-color: grey;
+        border-width: thin;
+      }
+      background-color: #18232b !important;
+      border-radius: 15px !important;
+      width: 100%;
+    }
+    margin: 5% 0 0 5%;
+  }
+  &-topics{
+    .ant-card-head {
+      padding: 2% 0 0 5%;
+      border-color: grey;
+    }
+    .ant-card-head-title{
+      font-size: 1.2em;
+      color: white;
+      font-weight: bolder;
+    }
+    &-information{
+      display: flex;
+      flex-direction: column;
+      h3{
+        color: white;
+        margin: 0;
+      }
+      h4{
+        color: grey;
+      }
+    }
+    &-button{
+      padding-top: 5%;
+      Button{
+        background-color: #18242c;
+        color: #43a9fb;
+        border-radius: 20px;
+      }
+      svg {
+        color: grey;
+      }
+    }
+    .ant-card {
+      .right-sider-topics-container{
+        padding: 2% 0 2% 1%;
+        border-bottom-style: solid;
+        border-color: grey;
+        border-width: thin;
+      }
+      background-color: #18232b !important;
+      border-radius: 15px !important;
+      width: 100%;
+    }
+    margin: 0 0 0 5%;
   }
 }
 

@@ -9,7 +9,12 @@ import {
 import tweetService from '../services/tweetService';
 import './DeleteTweetModal.scss';
 
-const DeleteTweetModal = ({ tweet, isModalOpen, setIsModalOpen }) => {
+const DeleteTweetModal = ({
+  setTweet,
+  tweet,
+  isModalOpen,
+  setIsModalOpen,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const handleCancel = () => {
     setIsLoading(false);
@@ -22,17 +27,30 @@ const DeleteTweetModal = ({ tweet, isModalOpen, setIsModalOpen }) => {
     if (response.status !== 200) {
       message.info('Failed to delete tweet');
     }
-    message.success('Tweet Deleted');
+    if (response.status === 200) {
+      const fetchedTweetsResponse = await tweetService.getAllTweets();
+      if (fetchedTweetsResponse.data.length !== 0) {
+        const fetchedTweets = fetchedTweetsResponse.data;
+        setTweet(fetchedTweets);
+      }
+      message.success('Tweet Deleted');
+    }
     handleCancel();
   };
 
   return (
     <Modal visible={isModalOpen} footer={null} onCancel={handleCancel} closable={false}>
       <div className="delete-tweet-confirmation">
-        <h3>Are you Sure?</h3>
-        <p>This tweet will be deleted forever</p>
+        <h3>Delete Tweet?</h3>
+        <p>
+          This can’t be undone and it
+          will be removed from your profile,
+          the timeline of any accounts that follow you,
+          and from Twitter search results.
+        </p>
         <div className="delete-tweet-confirmation-button-container">
           <Space>
+            <Button type="primary" onClick={handleCancel} disabled={isLoading}>Cancel</Button>
             <Button type="primary" danger onClick={() => handleOKButton(tweet)} disabled={isLoading}>
               {
                 isLoading
@@ -40,7 +58,6 @@ const DeleteTweetModal = ({ tweet, isModalOpen, setIsModalOpen }) => {
                   : <div>Delete</div>
               }
             </Button>
-            <Button type="primary" onClick={handleCancel} disabled={isLoading}>Cancel</Button>
           </Space>
         </div>
       </div>

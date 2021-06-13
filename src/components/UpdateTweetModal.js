@@ -11,7 +11,10 @@ import './UpdateTweetModal.scss';
 import CreateTweetSchema from '../ValidationSchema/TweetValidation';
 
 const UpdateTweetModal = ({
-  setTweetToBeUpdated, tweetToBeUpdated, isModalOpen, setIsModalOpen,
+  setTweetToBeUpdated,
+  tweetToBeUpdated,
+  isModalOpen,
+  setIsModalOpen,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [tweetMessage, setTweetMessage] = useState(tweetToBeUpdated.message);
@@ -60,20 +63,17 @@ const UpdateTweetModal = ({
             }}
           >
 
-            {({ errors, touched }) => (
+            {({ errors }) => (
               <Form>
                 <Field as="textarea" name="message" placeholder="What's happening?" type="text" className="tweet-form" />
-                {errors.message && touched.message ? (
-                  <div className="error-container">{errors.message}</div>
-                ) : null}
                 <div className="button-container-update">
-                  <button disabled={isLoading} type="submit" className="button-submit" onClick={Formik.onSubmit}>
+                  <button disabled={isLoading || errors.message} type="submit" className="button-submit" onClick={Formik.onSubmit}>
                     {isLoading ? (
                       <div>
                         <Spin />
                       </div>
                     ) : (
-                      <div>Submit</div>
+                      <div>Update</div>
                     )}
                   </button>
                 </div>

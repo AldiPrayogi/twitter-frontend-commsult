@@ -5,7 +5,8 @@ import {
   Button,
   Row,
   Col,
-  Card, Space,
+  Card,
+  Space,
 } from 'antd';
 import {
   TwitterOutlined,
@@ -16,8 +17,10 @@ import {
   EllipsisOutlined,
   HomeOutlined,
   EditOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import Avatar from 'react-avatar';
+import Search from 'antd/es/input/Search';
 import { useHistory } from 'react-router-dom';
 import CreateTweetForm from '../components/CreateTweetForm';
 import authService from '../services/authService';
@@ -25,13 +28,18 @@ import './HomePage.scss';
 import tweetService from '../services/tweetService';
 import DeleteTweetModal from '../components/DeleteTweetModal';
 import UpdateTweetModal from '../components/UpdateTweetModal';
+import ComposeTweetModal from '../components/ComposeTweetModal';
 
 const HomePage = () => {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState({});
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState('');
   const [iseDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isComposeTweetModalOpen, setIsComposeTweetModalOpen] = useState(false);
   const [tweetToBeUpdated, setTweetToBeUpdated] = useState({});
+  const [tweetToBeDeleted, setTweetToBeDeleted] = useState('create');
+
   const history = useHistory();
 
   const verifyToken = async () => {
@@ -64,7 +72,12 @@ const HomePage = () => {
     setIsUpdateModalOpen(true);
   };
 
-  const handleDeleteButtonClicked = () => {
+  const handleComposeTweetButtonClicked = () => {
+    setIsComposeTweetModalOpen(true);
+  };
+
+  const handleDeleteButtonClicked = (tweet) => {
+    setTweetToBeDeleted(tweet);
     setIsDeleteModalOpen(true);
   };
 
@@ -72,7 +85,12 @@ const HomePage = () => {
     (async () => {
       await getTweets();
     })();
-  }, [iseDeleteModalOpen === false, isUpdateModalOpen === false]);
+  }, [
+    iseDeleteModalOpen === false,
+    isComposeTweetModalOpen === false,
+    isUpdateModalOpen === false,
+    isButtonClicked === false,
+  ]);
 
   useEffect(() => {
     (async () => {
@@ -123,28 +141,43 @@ const HomePage = () => {
                 </div>
               </Menu.Item>
               <div className="button-container">
-                <Button type="primary" size="large">
+                <Button type="primary" size="large" onClick={handleComposeTweetButtonClicked}>
                   <EditOutlined />
+                  <ComposeTweetModal
+                    setTweets={setTweets}
+                    isModalOpen={isComposeTweetModalOpen}
+                    setIsModalOpen={setIsComposeTweetModalOpen}
+                  />
                 </Button>
               </div>
               <Popover
                 content={(
                   <div className="logout-container">
                     <div className="info-logout-container">
-                      <Avatar name={user.fullName} round size={40} textSizeRatio={1} color="#FFFFFF" fgColor="#000000" />
-                      <p className="username-info">{ `@${user.username}` }</p>
+                      <Row>
+                        <Col className="username-avatar" span={8}>
+                          <Avatar name={user.fullName} round size={40} textSizeRatio={1} color="#FFFFFF" fgColor="#000000" />
+                        </Col>
+                        <Col className="username-info" span={16}>
+                          <h4>{user.fullName}</h4>
+                          <p>{ `@${user.username}` }</p>
+                        </Col>
+                      </Row>
                     </div>
-                    <Button type="primary" onClick={handleLogout}>
-                      Logout @
-                      {user.username}
-                    </Button>
+                    <Menu>
+                      <Menu.Item onClick={handleLogout} className="logout-button">
+                        Logout @
+                        {user.username}
+                      </Menu.Item>
+                    </Menu>
                   </div>
                 )}
                 trigger="click"
               >
                 <Menu.Item key="8" icon={<Avatar name={user.fullName} round size={30} textSizeRatio={1} color="#FFFFFF" fgColor="#000000" />} className="avatar-container">
                   <div className="user-name">
-                    <h3>{ user.username }</h3>
+                    <p>{ user.fullName }</p>
+                    <p className="username">{ `@${user.username}` }</p>
                   </div>
                 </Menu.Item>
               </Popover>
@@ -157,7 +190,7 @@ const HomePage = () => {
           </div>
           <div className="tweet-form-container">
             <div className="create-tweet-container">
-              <CreateTweetForm setTweets={setTweets} />
+              <CreateTweetForm setIsModalOpen={setIsButtonClicked} />
             </div>
           </div>
           <div className="tweet-container">
@@ -165,7 +198,9 @@ const HomePage = () => {
               tweets.length === 0
                 ? (
                   <div>
-                    <h1>EMPTY</h1>
+                    <Card title="Start Tweeting!" className="card-empty">
+                      <h2>No Tweets Found!</h2>
+                    </Card>
                   </div>
                 )
                 : tweets.map((tweet) => (
@@ -191,7 +226,7 @@ const HomePage = () => {
                               {tweet.message}
                             </p>
                           </Col>
-                          <Col span={1} className="card-tweet-information-avatar">
+                          <Col span={1} className="card-tweet-information-action">
                             <div>
                               {
                                 tweet.User.username === user.username
@@ -201,16 +236,18 @@ const HomePage = () => {
                                         <div className="tweet-action-container">
                                           <Menu theme="dark">
                                             <Menu.Item key="1" onClick={() => handleUpdateButtonClicked(tweet)}><p>Update</p></Menu.Item>
-                                            <Menu.Item key="2" onClick={handleDeleteButtonClicked}><p>Delete</p></Menu.Item>
+                                            <Menu.Item key="2" onClick={() => handleDeleteButtonClicked(tweet)}><p>Delete</p></Menu.Item>
                                           </Menu>
                                           <UpdateTweetModal
                                             setTweetToBeUpdated={setTweetToBeUpdated}
                                             tweetToBeUpdated={tweetToBeUpdated}
                                             isModalOpen={isUpdateModalOpen}
                                             setIsModalOpen={setIsUpdateModalOpen}
+                                            setTweets={setTweets}
                                           />
                                           <DeleteTweetModal
-                                            tweet={tweet}
+                                            setTweet={setTweets}
+                                            tweet={tweetToBeDeleted}
                                             isModalOpen={iseDeleteModalOpen}
                                             setIsModalOpen={setIsDeleteModalOpen}
                                           />
@@ -218,7 +255,7 @@ const HomePage = () => {
                                       )}
                                       trigger="hover"
                                     >
-                                      <div>
+                                      <div className="card-tweet-information-action-icon">
                                         <EllipsisOutlined />
                                       </div>
                                     </Popover>
@@ -236,7 +273,165 @@ const HomePage = () => {
           </div>
         </Col>
         <Col className="right-sider" span={9}>
-          <p>abc</p>
+          <div className="right-sider">
+            <Space direction="vertical">
+              <div className="right-sider-search">
+                <Search placeholder="Search Twitter" className="right-sider-search-input" />
+              </div>
+              <div className="right-sider-trends">
+                <Card title="Trends for you" bordered={false}>
+                  <div className="right-sider-trends-container">
+                    <Row>
+                      <Col span={22}>
+                        <div className="right-sider-trends-information">
+                          <h5>Trending in Indonesia</h5>
+                          <h4>Gustika</h4>
+                          <h5>20k Tweets</h5>
+                        </div>
+                      </Col>
+                      <Col span={2}>
+                        <div className="right-sider-trends-button">
+                          <Space direction="horizontal">
+                            <EllipsisOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-trends-container">
+                    <Row>
+                      <Col span={22}>
+                        <div className="right-sider-trends-information">
+                          <h5>Trending in Indonesia</h5>
+                          <h4>Mola</h4>
+                          <h5>24.2k Tweets</h5>
+                        </div>
+                      </Col>
+                      <Col span={2}>
+                        <div className="right-sider-trends-button">
+                          <Space direction="horizontal">
+                            <EllipsisOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-trends-container">
+                    <Row>
+                      <Col span={22}>
+                        <div className="right-sider-trends-information">
+                          <h5>Sports . Trending</h5>
+                          <h4>Harry Kane</h4>
+                          <h5>50k Tweets</h5>
+                        </div>
+                      </Col>
+                      <Col span={2}>
+                        <div className="right-sider-trends-more">
+                          <Space direction="horizontal">
+                            <EllipsisOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-trends-container">
+                    <Row>
+                      <Col span={22}>
+                        <div className="right-sider-trends-information">
+                          <h5>Entertainment . Film</h5>
+                          <h4>The Witcher Season 2</h4>
+                          <h5>100k Tweets</h5>
+                        </div>
+                      </Col>
+                      <Col span={2}>
+                        <div className="right-sider-trends-button">
+                          <Space direction="horizontal">
+                            <EllipsisOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Card>
+              </div>
+              <div className="right-sider-topics">
+                <Card title="Topics to follow" bordered={false}>
+                  <div className="right-sider-topics-container">
+                    <Row>
+                      <Col span={16}>
+                        <div className="right-sider-topics-information">
+                          <h3>Horizon Zero Dawn</h3>
+                          <h4>Video Games</h4>
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div className="right-sider-topics-button">
+                          <Space direction="horizontal">
+                            <Button type="primary">Follow</Button>
+                            <CloseOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-topics-container">
+                    <Row>
+                      <Col span={16}>
+                        <div className="right-sider-topics-information">
+                          <h3>Romelu Lukaku</h3>
+                          <h4>Soccer Player</h4>
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div className="right-sider-topics-button">
+                          <Space direction="horizontal">
+                            <Button type="primary">Follow</Button>
+                            <CloseOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-topics-container">
+                    <Row>
+                      <Col span={16}>
+                        <div className="right-sider-topics-information">
+                          <h3>Muse</h3>
+                          <h4>Music Band</h4>
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div className="right-sider-topics-button">
+                          <Space direction="horizontal">
+                            <Button type="primary">Follow</Button>
+                            <CloseOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  <div className="right-sider-topics-container">
+                    <Row>
+                      <Col span={16}>
+                        <div className="right-sider-topics-information">
+                          <h3>Linus Tech Tips</h3>
+                          <h4>Tech Reviewer</h4>
+                        </div>
+                      </Col>
+                      <Col span={8}>
+                        <div className="right-sider-topics-button">
+                          <Space direction="horizontal">
+                            <Button type="primary">Follow</Button>
+                            <CloseOutlined />
+                          </Space>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Card>
+              </div>
+            </Space>
+          </div>
         </Col>
       </Row>
     </div>

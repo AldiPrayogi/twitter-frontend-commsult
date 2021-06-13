@@ -1,11 +1,30 @@
+.ant-modal-content{
+  border-radius: 20px !important;
+  max-width: 300px;
+  border-style: none !important;
+}
+
 .delete-tweet-confirmation{
+  border-radius: 20px;
+  text-align: center;
   background-color: #18242c;
   color: white;
   padding: 5%;
-  h3{
+  h3 {
     color: white;
   }
+  p {
+    color: grey;
+  }
   &-button-container {
-    text-align: right;
+    text-align: center;
+    Button {
+      font-weight: bold;
+      border-radius: 20px;
+    }
+    .ant-btn-primary {
+      background-color: #001529;
+      border-color: #18242c;
+    }
   }
 }

@@ -6,7 +6,7 @@ import tweetService from '../services/tweetService';
 import CreateTweetSchema from '../ValidationSchema/TweetValidation';
 import './CreateTweetForm.scss';
 
-const CreateTweetForm = ({ setTweets }) => {
+const CreateTweetForm = ({ setIsModalOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleOnSubmit = async (values) => tweetService.createTweet(values);
@@ -19,15 +19,12 @@ const CreateTweetForm = ({ setTweets }) => {
         }}
         validationSchema={CreateTweetSchema}
         onSubmit={async (values, { resetForm }) => {
+          setIsModalOpen(true);
           setIsLoading(true);
           const result = await handleOnSubmit(values);
           if (result.status !== 500) {
-            const fetchedTweetsResponse = await tweetService.getAllTweets();
-            if (fetchedTweetsResponse.data.length !== 0) {
-              const fetchedTweets = fetchedTweetsResponse.data;
-              setTweets(fetchedTweets);
-              message.success('Tweet Created');
-            }
+            message.success('Tweet Created');
+            setIsModalOpen(false);
             resetForm();
           }
           if (result.status === 500) {
@@ -37,17 +34,17 @@ const CreateTweetForm = ({ setTweets }) => {
         }}
       >
 
-        {({ errors, touched }) => (
+        {({ errors }) => (
           <Form>
             <Field as="textarea" name="message" placeholder="What's happening?" type="text" className="tweet-form" />
             <div className="button-container-create">
-              <button disabled={isLoading || errors.message || touched} type="submit" className="button-submit" onClick={Formik.onSubmit}>
+              <button disabled={isLoading || errors.message} type="submit" className="button-submit" onClick={Formik.onSubmit}>
                 {isLoading ? (
                   <div>
                     <Spin />
                   </div>
                 ) : (
-                  <div>Submit</div>
+                  <div>Tweet</div>
                 )}
               </button>
             </div>
