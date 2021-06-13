@@ -72,7 +72,7 @@ const RegisterModal = ({ isModalOpen, setIsModalOpen }) => {
                 {errors.password && touched.password ? (
                   <div className="error-container">{errors.password}</div>
                 ) : null}
-                <DatePicker name="dateOfBirth" className="signup-field" />
+                <DatePicker name="dateOfBirth" className="signup-field" placeholder="Date of Birth" />
                 {errors.dateOfBirth && touched.dateOfBirth ? (
                   <div className="error-container">{errors.dateOfBirth}</div>
                 ) : null}

@@ -12,8 +12,10 @@ const login = async (payload) => {
 
 const verify = async () => axios.post(`${API_URL}/verify`, {}, { validateStatus: () => true });
 
+const logout = async () => axios.post(`${API_URL}/logout`, {}, { validateStatus: () => true });
+
 const authService = {
-  register, login, verify,
+  register, login, verify, logout,
 };
 
 export default authService;

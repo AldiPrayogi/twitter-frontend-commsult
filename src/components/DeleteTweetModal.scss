@@ -1,0 +1,11 @@
+.delete-tweet-confirmation{
+  background-color: #18242c;
+  color: white;
+  padding: 5%;
+  h3{
+    color: white;
+  }
+  &-button-container {
+    text-align: right;
+  }
+}
