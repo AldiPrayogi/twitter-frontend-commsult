@@ -3,6 +3,9 @@ import { Form, Field } from 'formik-antd';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { message, Spin } from 'antd';
+import {
+  TwitterOutlined,
+} from '@ant-design/icons';
 import SignInSchema from '../ValidationSchema/SignInValidation';
 import authService from '../services/authService';
 import './LoginPage.scss';
@@ -14,8 +17,15 @@ const LoginPage = () => {
 
   const handleOnSubmit = async (values) => authService.login(values);
 
+  const handleIconClick = () => {
+    history.push('/');
+  };
+
   return (
     <div className="login-container">
+      <div className="icon-container">
+        <TwitterOutlined onClick={handleIconClick} />
+      </div>
       <div className="form-container">
         <h1>Log In to Twitter</h1>
         <Formik
