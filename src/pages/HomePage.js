@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import {
   Popover,
@@ -7,6 +8,7 @@ import {
   Col,
   Card,
   Space,
+  Input,
 } from 'antd';
 import {
   TwitterOutlined,
@@ -18,9 +20,9 @@ import {
   HomeOutlined,
   EditOutlined,
   CloseOutlined,
+  SearchOutlined,
 } from '@ant-design/icons';
 import Avatar from 'react-avatar';
-import Search from 'antd/es/input/Search';
 import { useHistory } from 'react-router-dom';
 import CreateTweetForm from '../components/CreateTweetForm';
 import authService from '../services/authService';
@@ -86,7 +88,6 @@ const HomePage = () => {
       await getTweets();
     })();
   }, [
-    iseDeleteModalOpen === false,
     isComposeTweetModalOpen === false,
     isUpdateModalOpen === false,
     isButtonClicked === false,
@@ -100,7 +101,6 @@ const HomePage = () => {
       const userData = JSON.parse(rawUserData);
       setUser(userData);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -199,7 +199,9 @@ const HomePage = () => {
                 ? (
                   <div>
                     <Card title="Start Tweeting!" className="card-empty">
-                      <h2>No Tweets Found!</h2>
+                      <div>
+                        <h2>No Tweets Found!</h2>
+                      </div>
                     </Card>
                   </div>
                 )
@@ -276,7 +278,12 @@ const HomePage = () => {
           <div className="right-sider">
             <Space direction="vertical">
               <div className="right-sider-search">
-                <Search placeholder="Search Twitter" className="right-sider-search-input" />
+                <Input
+                  size="large"
+                  placeholder="Search Twitter"
+                  className="right-sider-search-input"
+                  prefix={<SearchOutlined />}
+                />
               </div>
               <div className="right-sider-trends">
                 <Card title="Trends for you" bordered={false}>

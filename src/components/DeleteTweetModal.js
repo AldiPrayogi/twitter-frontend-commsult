@@ -29,10 +29,8 @@ const DeleteTweetModal = ({
     }
     if (response.status === 200) {
       const fetchedTweetsResponse = await tweetService.getAllTweets();
-      if (fetchedTweetsResponse.data.length !== 0) {
-        const fetchedTweets = fetchedTweetsResponse.data;
-        setTweet(fetchedTweets);
-      }
+      const fetchedTweets = fetchedTweetsResponse.data;
+      setTweet(fetchedTweets);
       message.success('Tweet Deleted');
     }
     handleCancel();

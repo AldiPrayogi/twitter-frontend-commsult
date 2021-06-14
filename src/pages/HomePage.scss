@@ -248,7 +248,8 @@
   border-right-style: none !important;
   background-color: #18242c !important;
   border-color: grey !important;
-  h3 {
+  h2 {
+    text-align: center;
     color: white;
   }
 }
@@ -340,13 +341,21 @@
     display: none;
   }
   text-align: left;
+  .ant-input-lg{
+    margin-left: 2%;
+    background-color: #18232b;
+    color: white;
+  }
   &-search{
+    svg{
+      color: white;
+    }
     border-radius: 30px !important;
     min-width: 15vw;
-    background-color: #18242c !important;
     margin: 5% 0 0 5%;
     &-input {
-      background-color: #18242c !important;
+      border-style: none !important;
+      background-color: #18232b !important;
       color: white;
     }
   }

@@ -1,10 +1,12 @@
 .register-modal-container{
+  min-width: 500px;
 }
 
 .register-modal{
   padding: 0 !important;
 }
 .ant-modal-body{
+  min-width: 400px;
   padding: 0 !important;
 }
 .ant-picker-clear{
@@ -17,6 +19,7 @@
   padding: 5% 5% 5% 5%;
   background-color: #001529;
   h1{
+    text-align: center;
     font-weight: bold;
     color: white;
   }
@@ -29,7 +32,7 @@
     font-size: 1.5em;
     padding: 5px;
     border-radius: 5px;
-    margin: 2.5% 0 1% 0;
+    margin: 5% 0 8% 0;
     width: 100%;
     display: block;
     input{
@@ -51,7 +54,6 @@
   border-width: thin;
   border-color: dodgerblue;
   background-color: #13bffb;
-  margin-top: 3%;
   padding: 5px;
   width: 30%;
   font-size: 1.1em;
