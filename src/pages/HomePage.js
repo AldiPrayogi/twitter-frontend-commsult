@@ -9,6 +9,7 @@ import {
   Card,
   Space,
   Input,
+  Radio,
 } from 'antd';
 import {
   TwitterOutlined,
@@ -41,6 +42,8 @@ const HomePage = () => {
   const [isComposeTweetModalOpen, setIsComposeTweetModalOpen] = useState(false);
   const [tweetToBeUpdated, setTweetToBeUpdated] = useState({});
   const [tweetToBeDeleted, setTweetToBeDeleted] = useState('create');
+  const [searchInput, setSearchInput] = useState('');
+  const [sortingValue, setSortingValue] = useState('DESC');
 
   const history = useHistory();
 
@@ -53,7 +56,7 @@ const HomePage = () => {
   };
 
   const getTweets = async () => {
-    const fetchedTweetsResponse = await tweetService.getAllTweets();
+    const fetchedTweetsResponse = await tweetService.getAllTweets(sortingValue);
     if (fetchedTweetsResponse.data.length !== 0) {
       const fetchedTweets = fetchedTweetsResponse.data;
       setTweets(fetchedTweets);
@@ -67,6 +70,22 @@ const HomePage = () => {
       localStorage.clear();
       history.push('/');
     }
+  };
+
+  const handleSearch = async () => {
+    console.log(searchInput);
+    const resultedTweet = await tweetService.getTweetsBy(searchInput);
+    console.log(resultedTweet);
+    setTweets(resultedTweet.data);
+  };
+
+  const handleRadioChange = async (e) => {
+    setSortingValue(e.target.value);
+    await getTweets();
+  };
+
+  const handleOnChangeSearch = (e) => {
+    setSearchInput(e.target.value);
   };
 
   const handleUpdateButtonClicked = (tweet) => {
@@ -283,7 +302,15 @@ const HomePage = () => {
                   placeholder="Search Twitter"
                   className="right-sider-search-input"
                   prefix={<SearchOutlined />}
+                  onChange={handleOnChangeSearch}
+                  onPressEnter={() => handleSearch(searchInput)}
                 />
+              </div>
+              <div className="right-sider-radio">
+                <Radio.Group onChange={handleRadioChange}>
+                  <Radio value="ASC">Descending</Radio>
+                  <Radio value="DESC">Ascending</Radio>
+                </Radio.Group>
               </div>
               <div className="right-sider-trends">
                 <Card title="Trends for you" bordered={false}>

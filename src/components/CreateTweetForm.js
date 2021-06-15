@@ -38,7 +38,8 @@ const CreateTweetForm = ({ setIsModalOpen }) => {
           <Form>
             <Field as="textarea" name="message" placeholder="What's happening?" type="text" className="tweet-form" />
             <div className="button-container-create">
-              <button disabled={isLoading || errors.message} type="submit" className="button-submit" onClick={Formik.onSubmit}>
+              {errors.message ? <div className="error-container">{errors.message}</div> : null}
+              <button disabled={isLoading} type="submit" className="button-submit" onClick={Formik.onSubmit}>
                 {isLoading ? (
                   <div>
                     <Spin />

@@ -359,6 +359,22 @@
       color: white;
     }
   }
+  &-radio{
+    Span{
+      color: white;
+    }
+    svg{
+      color: white;
+    }
+    border-radius: 30px !important;
+    min-width: 15vw;
+    margin: 5% 0 0 5%;
+    &-input {
+      border-style: none !important;
+      background-color: #18232b !important;
+      color: white;
+    }
+  }
   &-trends{
     .ant-card-head {
       padding: 2% 0 0 5%;

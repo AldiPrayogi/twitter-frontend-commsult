@@ -67,6 +67,7 @@ const UpdateTweetModal = ({
               <Form>
                 <Field as="textarea" name="message" placeholder="What's happening?" type="text" className="tweet-form" />
                 <div className="button-container-update">
+                  {errors.message ? <div className="error-container">{errors.message}</div> : null}
                   <button disabled={isLoading || errors.message} type="submit" className="button-submit" onClick={Formik.onSubmit}>
                     {isLoading ? (
                       <div>

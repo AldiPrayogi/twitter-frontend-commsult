@@ -29,6 +29,7 @@ const LandingPage = () => {
   const onSubmitRegister = () => {
     setIsSignUpModalOpen(true);
   };
+
   const onSubmitLogin = () => {
     history.push('/login');
   };
